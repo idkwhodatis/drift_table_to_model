@@ -105,7 +105,7 @@ class DriftModelBuilder extends Builder{
         String partFile='';
 
         await for(final input in buildStep.findAssets(Glob('lib/**/*.dart'))){
-            if(p.basename(input.path)=='model.g.dart'){
+            if(p.basename(input.path).contains('.g.dart')){
                 continue;
             }
             if(RegExp(r'''part\s+['"]models.g.dart['"]\s*;''').hasMatch(await buildStep.readAsString(input))){
@@ -113,7 +113,12 @@ class DriftModelBuilder extends Builder{
                 partFile=p.basename(input.path);
             }
 
-            final library=await buildStep.resolver.libraryFor(input);
+            final LibraryElement library;
+            try{
+                library=await buildStep.resolver.libraryFor(input);
+            }catch(e){
+                continue;
+            }
             final generator=DriftModelGenerator(useFinal,useConst);
             
             final generatedCode=await generator.generate(LibraryReader(library),buildStep);
