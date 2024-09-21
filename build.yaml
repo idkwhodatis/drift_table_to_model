@@ -1,0 +1,18 @@
+builders:
+  drift_model_builder:
+    import: "package:tftmaster/generators/drift_table_to_model.dart"
+    builder_factories: ["driftModelBuilderFactory"]
+    build_extensions: { "$lib$": ["models.g.dart"] }
+    build_to: source
+    auto_apply: root_package
+    applies_builders:
+      - tftmaster|drift_model_post_process_builder
+    defaults:
+      options:
+        use_final: true
+        use_const: true
+
+post_process_builders:
+  drift_model_post_process_builder:
+    import: "package:tftmaster/generators/drift_table_to_model.dart"
+    builder_factory: "driftModelPostProcessBuilderFactory"
