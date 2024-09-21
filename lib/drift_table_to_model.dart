@@ -1,6 +1,3 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
 library;
 
 import 'dart:async';
@@ -20,6 +17,7 @@ class DriftModelGenerator extends Generator{
 
     @override
     FutureOr<String?> generate(LibraryReader library,BuildStep buildStep){
+        final modelClasses=<String>[];
         for(final element in library.classes){
             if(element.supertype!=null&&element.supertype!.element.name=='Table'){
                 final className=element.name;
@@ -46,11 +44,11 @@ class DriftModelGenerator extends Generator{
 
                 final String modelClass=_generateModelClass(modelClassName,fields);
                 if(modelClass.isNotEmpty){
-                    return modelClass;
+                    modelClasses.add(modelClass);
                 }
             }
         }
-        return null;
+        return modelClasses.join('\n\n');
     }
 
     String? _getFieldType(FieldElement field){
