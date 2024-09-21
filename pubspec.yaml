@@ -1,6 +1,6 @@
 name: drift_table_to_model
 description: Dart builder to generate model classes from drift table classes
-version: 1.0.0
+version: 1.0.1
 repository: https://github.com/idkwhodatis/drift_table_to_model
 
 environment:

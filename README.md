@@ -2,6 +2,7 @@
 Dart builder to generate model classes from [drift](https://github.com/simolus3/drift) table classes
 
 ## Quickstart
+Open a terminal and execute `dart pub add drift_table_to_model`  
 Put a `part models.g.dart` line in a `.dart` file  
 (My recommendation is to create a `models.dart` file for easier importing)  
 Open a terminal and execute `dart run build_runner build`  
